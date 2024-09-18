@@ -1,4 +1,6 @@
-﻿namespace GAME230_TextAdventure;
+﻿using System.Drawing;
+
+namespace GAME230_TextAdventure;
 
 public static class Game
 {
@@ -9,11 +11,16 @@ public static class Game
 
         while (_isGameOver == false)
         {
-            Console.Write("> ");
-            string input = Console.ReadLine();
-            if (input == "exit")
+            Command command = CommandProcessor.ProcessCommand();
+            if (command.isValid)
             {
-                _isGameOver = true;
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                IO.Write("-- Print: "  + command.ToString());
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                IO.Write("!- Invalid command");
             }
         }
     }
