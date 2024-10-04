@@ -6,12 +6,14 @@ public static class Vocabulary
     private static List<string> nonStandaloneVerbs = new List<string>()
     {
         "eat",
-        "go"
+        "go",
+        "take"
     };
     
     // These verbs are commands that can be triggered alone, without specifying a recipient of the action
     private static List<string> standaloneVerbs = new List<string>()
     {
+        "toggle-debugger",
         "look",
         "inventory",
         "exit"
@@ -33,8 +35,16 @@ public static class Vocabulary
         return standaloneVerbs.Contains(word);
     }
 
-    public static bool isNoun(string word)
+    public static bool IsNoun(string word)
     {
         return nouns.Contains(word);
+    }
+
+    public static void AddNoun(String noun)
+    {
+        if (!nouns.Contains(noun))
+        {
+            nouns.Add(noun.ToLower());
+        }
     }
 }

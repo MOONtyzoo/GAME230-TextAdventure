@@ -8,12 +8,27 @@ public static class CommandValidator
         {
             if (Vocabulary.IsStandaloneVerb(command.verb))
             {
-                command.isValid = true;
+                if (command.HasNoNoun())
+                {
+                    command.isValid = true;
+                }
+                else
+                {
+                    IO.Write("I don't know how to do that.");
+                }
             }
-            else if (Vocabulary.isNoun(command.noun))
+            else if (Vocabulary.IsNoun(command.noun))
             {
                 command.isValid = true;
             }
+            else
+            {
+                IO.Write("I don't know the word '" + command.noun + "'.");
+            }
+        }
+        else
+        {
+            IO.Write("I don't know the word '" + command.verb + "'.");
         }
         
         return command;

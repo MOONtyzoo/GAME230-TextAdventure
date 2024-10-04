@@ -5,22 +5,24 @@ namespace GAME230_TextAdventure;
 public static class Game
 {
     private static bool _isGameOver = false;
+
+    private static void InitializeGame()
+    {
+        Map.Initialize();
+        Player.Initialize();
+    }
+    
     public static void Play()
     {
-        Console.WriteLine("Playing the game");
+        InitializeGame();
+        Debugger.TurnOn();
 
         while (_isGameOver == false)
         {
             Command command = CommandProcessor.ProcessCommand();
             if (command.isValid)
             {
-                Console.ForegroundColor = ConsoleColor.DarkGray;
-                IO.Write("-- Print: "  + command.ToString());
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                IO.Write("!- Invalid command");
+                CommandHandler.HandleCommand(command);
             }
         }
     }
