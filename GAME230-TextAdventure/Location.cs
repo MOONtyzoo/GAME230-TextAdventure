@@ -39,16 +39,17 @@ public class Location
 
     public string GetDescription()
     {
-        string fullDescription = "--------------------\n[ " + name +  "]\n--------------------\n" + description + "\n-----\n";
-        return fullDescription + GetItems();
+        string fullDescription = "--------------------\n[ " + name +  " ]\n--------------------\n";
+        fullDescription += description + GetItemDescription();
+        return fullDescription;
     }
 
-    public string GetItems()
+    public string GetItemDescription()
     {
-        string itemString = "[Items]: ";
+        string itemString = "";
         foreach (Item item in items)
         {
-            itemString += "\n  - " + item.locationDescription;
+            itemString += " " + item.locationDescription;
         }
 
         return itemString;
@@ -64,15 +65,17 @@ public class Location
         return false;
     }
 
-    public Item TakeItem(string itemName)
+    public Item? TakeItem(string itemName)
     {
-        Item itemToTake = new Item("NULL ITEM", "you took an item that doesn't exist", "uh oh");
-        foreach (Item item in items)
-        {
-            if (item.name.ToLower() == itemName.ToLower()) itemToTake = item;
-        }
+        Item? itemToTake = items.FirstOrDefault(item => item.name.ToLower() == itemName.ToLower());
+        if (itemToTake == null) return null;
         
-        items.Remove(itemToTake);
-        return itemToTake;
+        if (itemToTake.isTakeable)
+        {
+            items.Remove(itemToTake);
+            return itemToTake;
+        }
+
+        return null;
     }
 }

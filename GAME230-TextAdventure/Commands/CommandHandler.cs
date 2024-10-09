@@ -7,7 +7,9 @@ public static class CommandHandler
         {"toggle-debugger", ToggleDebugger},
         {"go", Move},
         {"take", Take},
-        {"inventory", Inventory}
+        {"drop", Drop},
+        {"inventory", Inventory},
+        {"look", Look}
     };
     public static void HandleCommand(Command command)
     {
@@ -39,8 +41,18 @@ public static class CommandHandler
         Player.Take(command);
     }
 
+    private static void Drop(Command command)
+    {
+        Player.Drop(command);
+    }
+
     private static void Inventory(Command command)
     {
         Player.DisplayInventory(command);
+    }
+
+    private static void Look(Command command)
+    {
+        Player.Look(command);
     }
 }
